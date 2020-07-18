@@ -1,6 +1,7 @@
 from flask import Flask, render_template
-from extentions import bootsrap
+from extentions import bootstrap, db, login_manager, migrate
 from login import blueprint
+import models
 
 
 def create_app():
@@ -12,7 +13,11 @@ def create_app():
 
 
 def init_extentions(app):
-    bootsrap.init_app(app)
+    bootstrap.init_app(app)
+    db.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = 'login.login'
+    migrate.init_app(app, db)
 
 
 def main():
